@@ -60,6 +60,8 @@ This plugin relies on the official AWS SDK to perform uploads to S3. As
 such, it will inherit any credentials you have saved by running `aws
 configure` via the [AWS CLI][aws-cli].
 
+[aws-cli]: https://aws.amazon.com/cli/
+
 For managing multiple credentials, I recommend using the
 officially-supported profiles feature of AWS.
 
