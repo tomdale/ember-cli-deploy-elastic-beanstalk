@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-deploy-elastic-beanstalk",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "An ember-cli-deploy plugin for deploying to AWS Elastic Beanstalk running FastBoot",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,11 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/tomdale/ember-cli-deploy-elastic-beanstalk",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Tom Dale <tom@tomdale.net>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
@@ -38,10 +38,16 @@
     "ember-try": "~0.0.8"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember-cli-deploy-plugin"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.5"
+    "aws-sdk": "^2.2.26",
+    "ember-cli-babel": "^5.1.5",
+    "ember-cli-deploy-plugin": "^0.2.0",
+    "fs-promise": "^0.3.1",
+    "glob": "^6.0.1",
+    "rsvp": "^3.1.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
