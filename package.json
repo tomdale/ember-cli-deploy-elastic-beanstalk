@@ -43,10 +43,13 @@
   ],
   "dependencies": {
     "aws-sdk": "^2.2.26",
+    "awscred": "^1.1.0",
+    "chalk": "^1.1.1",
     "ember-cli-babel": "^5.1.5",
     "ember-cli-deploy-plugin": "^0.2.0",
     "fs-promise": "^0.3.1",
     "glob": "^6.0.1",
+    "inquirer": "^0.11.0",
     "rsvp": "^3.1.0"
   },
   "ember-addon": {
