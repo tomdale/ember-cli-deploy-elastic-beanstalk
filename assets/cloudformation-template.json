@@ -1,0 +1,120 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+
+  "Description": "Used by ember-cli-deploy-elastic-beanstalk to provision a new Elastic Beanstalk application for running Ember.js apps in FastBoot mode.",
+
+  "Mappings" : {
+    "Region2Principal" : {
+      "us-east-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "us-west-2"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "us-west-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "eu-west-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "ap-southeast-1" : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "ap-northeast-1" : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "ap-northeast-2" : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "ap-southeast-2" : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "sa-east-1"      : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" },
+      "cn-north-1"     : { "EC2Principal" : "ec2.amazonaws.com.cn", "OpsWorksPrincipal" : "opsworks.amazonaws.com.cn" },
+      "eu-central-1"   : { "EC2Principal" : "ec2.amazonaws.com", "OpsWorksPrincipal" : "opsworks.amazonaws.com" }
+    }
+
+  },
+
+  "Resources": {
+    "FastBootBucket": {
+      "Type": "AWS::S3::Bucket"
+    },
+
+    "FastBootServerRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument" : {
+          "Statement"  : [{
+            "Effect"   : "Allow",
+            "Principal": { "Service": [{ "Fn::FindInMap" : ["Region2Principal", {"Ref" : "AWS::Region"}, "EC2Principal"]}] },
+            "Action"   : [ "sts:AssumeRole" ]
+          } ]
+        },
+        "Path": "/"
+      }
+    },
+
+    "FastBootServerRolePolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName" : "FastBootServerRole",
+        "PolicyDocument" : {
+          "Statement": [{
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject"
+            ],
+            "Resource": { "Fn::Join": [
+              "", ["arn:aws:s3:::", { "Ref": "FastBootBucket" }, "/*" ]
+            ] }
+          }]
+        },
+        "Roles": [ { "Ref": "FastBootServerRole" } ]
+      }
+    },
+
+    "FastBootServerInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [ { "Ref": "FastBootServerRole" } ]
+      }
+    },
+
+    "FastBootApplication": {
+      "Type": "AWS::ElasticBeanstalk::Application",
+      "Properties": {
+        "Description": "FastBoot Application Server"
+      }
+    },
+
+    "FastBootApplicationVersion": {
+      "Type": "AWS::ElasticBeanstalk::ApplicationVersion",
+      "Properties": {
+        "Description": "Initial FastBoot server",
+        "ApplicationName": { "Ref": "FastBootApplication" },
+        "SourceBundle": {
+          "S3Bucket": "ember-fastboot-elastic-beanstalk",
+          "S3Key": "latest.zip"
+        }
+      }
+    },
+
+    "FastBootConfigurationTemplate" : {
+      "Type" : "AWS::ElasticBeanstalk::ConfigurationTemplate",
+      "Properties" : {
+        "ApplicationName" : { "Ref" : "FastBootApplication" },
+        "Description" : "Default Configuration",
+        "SolutionStackName" : "64bit Amazon Linux 2015.09 v2.0.6 running Node.js",
+        "OptionSettings" : [{
+          "Namespace": "aws:autoscaling:launchconfiguration",
+          "OptionName": "IamInstanceProfile",
+          "Value": { "Ref": "FastBootServerInstanceProfile" }
+        }]
+      }
+    },
+
+    "FastBootEnvironment": {
+      "Type": "AWS::ElasticBeanstalk::Environment",
+      "Properties": {
+        "ApplicationName": { "Ref": "FastBootApplication" },
+        "TemplateName": { "Ref" : "FastBootConfigurationTemplate" },
+        "VersionLabel": { "Ref" : "FastBootApplicationVersion" }
+      }
+    }
+
+  },
+
+  "Outputs": {
+    "URL": {
+      "Description": "URL of the AWS Elastic Beanstalk Environment",
+      "Value": { "Fn::Join": ["", ["http://", { "Fn::GetAtt": ["FastBootEnvironment", "EndpointURL"] }]]
+      }
+    }
+  }
+}
