@@ -9,6 +9,8 @@ FastBoot. Designed to be used in tandem with
 This plugin builds your application for FastBoot server-side rendering,
 then uploads a zip of the build to Amazon S3.
 
+Requires Node.js v4 or later.
+
 ## What is an ember-cli-deploy plugin?
 
 A plugin is an addon that can be executed as a part of the ember-cli-deploy pipeline. A plugin will implement one or more of the ember-cli-deploy's pipeline hooks.

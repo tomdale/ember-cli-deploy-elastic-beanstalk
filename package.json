@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-deploy-elastic-beanstalk",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "An ember-cli-deploy plugin for deploying to AWS Elastic Beanstalk running FastBoot",
   "directories": {
     "doc": "doc",
@@ -42,9 +42,10 @@
     "ember-cli-deploy-plugin"
   ],
   "dependencies": {
-    "aws-sdk": "^2.2.26",
+    "aws-sdk": "^2.3.6",
     "awscred": "^1.1.0",
     "chalk": "^1.1.1",
+    "digest-stream": "^0.2.2",
     "ember-cli-babel": "^5.1.5",
     "ember-cli-deploy-plugin": "^0.2.0",
     "fs-promise": "^0.3.1",
