@@ -58,9 +58,13 @@ ember install ember-cli-deploy-elastic-beanstalk
 
 ## A Note on AWS Permissions
 
-This plugin relies on the official AWS SDK to perform uploads to S3. As
+This plugin uses the official AWS SDK to perform uploads to S3. As
 such, it will inherit any credentials you have saved by running `aws
-configure` via the [AWS CLI][aws-cli].
+configure` via the [AWS CLI][aws-cli]. For environments where it is not feasible
+to use  `aws configure` (e.g. your CI environment like Travis), you can additionally
+specify an `accessKeyId` and `secretAccessKey` as a configuration option for this
+ember-cli-deploy plugin in the `deploy.js` file.
+
 
 [aws-cli]: https://aws.amazon.com/cli/
 
@@ -122,6 +126,19 @@ The path to the directory you'd like the FastBoot build to be built in to.
 The path to the zip file that should be created from the `outputPath`.
 
 *Default:* `tmp/fastboot-dist.zip`
+
+### accessKeyId
+
+The AWS access key for the user that has the ability to upload to the `bucket`. If this is left undefined, 
+the normal [AWS SDK credential resolution][5] will take place.
+
+*Default:* `undefined`
+
+### secretAccessKey
+
+The AWS secret for the user that has the ability to upload to the `bucket`. This must be defined when `accessKeyId` is defined.
+
+*Default:* `undefined`
 
 ## Thanks
 
