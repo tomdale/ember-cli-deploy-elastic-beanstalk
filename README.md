@@ -86,7 +86,7 @@ AWS_PROFILE=acme-corp ember deploy
 
 ## ember-cli-deploy Hooks Implemented
 
-For detailed information on what plugin hooks are and how they work, please refer to the [Plugin Documentation][1].
+For detailed information on what plugin hooks are and how they work, please refer to the [Plugin Documentation][plugin-documentation].
 
 - `build`
 - `didBuild`
