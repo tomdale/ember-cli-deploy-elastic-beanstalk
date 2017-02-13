@@ -2,9 +2,9 @@
 
 An ember-cli-deploy plugin for deploying an Ember app to AWS Elastic Beanstalk running
 FastBoot. Designed to be used in tandem with
-[ember-fastboot-elastic-beanstalk][ember-fastboot-elastic-beanstalk].
+[fastboot-aws][fastboot-aws].
 
-[ember-fastboot-elastic-beanstalk]: https://github.com/tomdale/ember-fastboot-elastic-beanstalk
+[fastboot-aws]: https://github.com/tomdale/fastboot-aws
 
 This plugin builds your application for FastBoot server-side rendering,
 then uploads a zip of the build to Amazon S3.
