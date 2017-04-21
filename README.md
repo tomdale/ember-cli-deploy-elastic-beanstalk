@@ -123,6 +123,12 @@ The path to the zip file that should be created from the `outputPath`.
 
 *Default:* `tmp/fastboot-dist.zip`
 
+### skipNpmInstall
+
+Does not run `npm install` as part of the build procedure if set to `true`.
+
+*Default:* `false`
+
 ## Thanks
 
 A big thank you to [Luke Melia](https://github.com/lukemelia) for
