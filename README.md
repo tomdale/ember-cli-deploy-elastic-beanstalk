@@ -123,6 +123,13 @@ The path to the zip file that should be created from the `outputPath`.
 
 *Default:* `tmp/fastboot-dist.zip`
 
+### filesToExclude
+
+Files that match this pattern will be excluded from the `zip`. For instance to
+exclude files with `.map` extension pass: `'\*.map'`.
+
+*Default:* `''`
+
 ### skipNpmInstall
 
 Does not run `npm install` as part of the build procedure if set to `true`.
