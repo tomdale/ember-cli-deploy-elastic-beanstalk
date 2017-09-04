@@ -2,9 +2,9 @@
 
 An ember-cli-deploy plugin for deploying an Ember app to AWS Elastic Beanstalk running
 FastBoot. Designed to be used in tandem with
-[ember-fastboot-elastic-beanstalk][ember-fastboot-elastic-beanstalk].
+[fastboot-aws][fastboot-aws].
 
-[ember-fastboot-elastic-beanstalk]: https://github.com/tomdale/ember-fastboot-elastic-beanstalk
+[fastboot-aws]: https://github.com/tomdale/fastboot-aws
 
 This plugin builds your application for FastBoot server-side rendering,
 then uploads a zip of the build to Amazon S3.
@@ -90,7 +90,7 @@ AWS_PROFILE=acme-corp ember deploy
 
 ## ember-cli-deploy Hooks Implemented
 
-For detailed information on what plugin hooks are and how they work, please refer to the [Plugin Documentation][1].
+For detailed information on what plugin hooks are and how they work, please refer to the [Plugin Documentation][plugin-documentation].
 
 - `build`
 - `didBuild`
@@ -127,6 +127,7 @@ The path to the zip file that should be created from the `outputPath`.
 
 *Default:* `tmp/fastboot-dist.zip`
 
+
 ### accessKeyId
 
 The AWS access key for the user that has the ability to upload to the `bucket`. If this is left undefined, 
@@ -139,6 +140,19 @@ the normal [AWS SDK credential resolution][5] will take place.
 The AWS secret for the user that has the ability to upload to the `bucket`. This must be defined when `accessKeyId` is defined.
 
 *Default:* `undefined`
+
+### filesToExclude
+
+Files that match this pattern will be excluded from the `zip`. For instance to
+exclude files with `.map` extension pass: `'\*.map'`.
+
+*Default:* `''`
+
+### skipNpmInstall
+
+Does not run `npm install` as part of the build procedure if set to `true`.
+
+*Default:* `false`
 
 ## Thanks
 
