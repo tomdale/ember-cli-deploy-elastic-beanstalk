@@ -6,10 +6,11 @@ FastBoot. Designed to be used in tandem with
 
 [fastboot-aws]: https://github.com/tomdale/fastboot-aws
 
-This plugin builds your application for FastBoot server-side rendering,
-then uploads a zip of the build to Amazon S3.
+## Compatibility
 
-Requires Node.js v4 or later.
+* Ember.js v3.24 or above
+* Ember CLI v3.24 or above
+* Node.js v12 or above
 
 ## What is an ember-cli-deploy plugin?
 
